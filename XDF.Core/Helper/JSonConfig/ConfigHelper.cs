@@ -38,18 +38,18 @@ namespace XDF.Core.Helper.JsonConfig
                         if (_configurationRoot == null)
                         {
                             var baseDir = AppContext.BaseDirectory;
-                            if (!File.Exists(baseDir + "/Config/appsettings.json"))
+                            if (!File.Exists(baseDir + "appsettings.json"))
                             {
                                 var di = new DirectoryInfo(string.Format("{0}../../../", baseDir));
                                 baseDir = di.FullName;
-                                if (!File.Exists(baseDir + "/Config/appsettings.json"))
+                                if (!File.Exists(baseDir + "appsettings.json"))
                                 {
                                     throw new Exception("没有找到配置文件");
                                 }
                             }
                             _configurationRoot = new ConfigurationBuilder().SetBasePath(baseDir).Add(new JsonConfigurationSource
                             {
-                                Path = "/Config/appsettings.json",
+                                Path = "appsettings.json",
                                 Optional = false,
                                 ReloadOnChange = true
                             }).Build();

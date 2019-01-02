@@ -3,24 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Elasticsearch.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using XDF.Core.Dto;
 
 namespace XDF.Web.Controllers
 {
-    public class Person
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; } = "富帅";
-    }
+ 
+    /// <summary>
+    /// 测试控制器
+    /// </summary>
+    //[Authorize(Policy = "Admin")]
     public class TestController : BaseController
     {
+
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public string Get(int p)
+        {
+            return p.ToString();
+        }
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetPerson")]
-        public Person Get(Person p)
+        public UserDto Get(string p)
         {
-            return p;
+            UserDto user=new UserDto();
+            user.Id=Guid.NewGuid();
+            return user;
         }
     }
 }

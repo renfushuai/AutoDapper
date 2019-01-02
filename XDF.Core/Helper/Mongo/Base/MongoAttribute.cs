@@ -9,7 +9,7 @@ namespace XDF.Core.Helper.Mongo.Base
     /// <summary>
     /// Mongo实体标签
     /// </summary>
-    public class MongoAttribute : Attribute
+    public class MongoAttribute : System.Attribute
     {
         public MongoAttribute(string database, string collection)
         {

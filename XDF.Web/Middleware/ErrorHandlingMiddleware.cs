@@ -12,12 +12,15 @@ using XDF.Core.Helper.Log;
 
 namespace XDF.Web.Middleware
 {
-    public class ErrorHandlingMiddleware
+    /// <summary>
+    /// 错误中间件
+    /// </summary>
+    public class ErrorHandler
     {
         private readonly RequestDelegate _next;
         private string _ex = "";
 
-        public ErrorHandlingMiddleware(RequestDelegate next)
+        public ErrorHandler(RequestDelegate next)
         {
             _next = next;
         }
@@ -67,12 +70,12 @@ namespace XDF.Web.Middleware
         }
 
     }
-    public static class ErrorHandleExtensions
-    {
-        public static IApplicationBuilder UseErrorHandling(this IApplicationBuilder builder, Action action = null)
-        {
-            action?.Invoke();
-            return builder.UseMiddleware<ErrorHandlingMiddleware>();
-        }
-    }
+    //public static class ErrorHandleExtensions
+    //{
+    //    public static IApplicationBuilder UseErrorHandling(this IApplicationBuilder builder, Action action = null)
+    //    {
+    //        action?.Invoke();
+    //        return builder.UseMiddleware<ErrorHandlingMiddleware>();
+    //    }
+    //}
 }

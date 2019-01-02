@@ -1,17 +1,58 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <script type="text/javascript">
-        function test() {
-            alert("hhah");
-            return "12321";
-        }
-    </script>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 <body>
-<h1>首页</h1>
-<button onclick="test"></button>
+<div id="app">
+    <el-button @click="visible = true">Button</el-button>
+    <el-dialog :visible.sync="visible" title="Hello world">
+        <p>Try Element</p>
+    </el-dialog>
+    <div class="filebox">
+        <el-upload class="upload-demo" :action="url"   :before-upload="beforeAvatarUpload">
+            <el-button size="mini" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+    </div>
+</div>
 </body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                visible: false,
+                url: "https://jsonplaceholder.typicode.com/posts/"
+        }
+        },
+        methods: {
+            beforeAvatarUpload(file) { 				
+                var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)				
+                const extension = testmsg === 'xls'
+                const extension2 = testmsg === 'xlsx'
+                const isLt2M = file.size / 1024 / 1024 < 10
+                console.log(file.size)
+                if(!extension && !extension2) {
+                    this.$message({
+                        message: '上传文件只能是 xls、xlsx格式!',
+                        type: 'warning'
+                    });
+                }
+             
+                if(!isLt2M) {
+                    this.$message({
+                        message: '上传文件大小不能超过 10MB!',
+                        type: 'warning'
+                    });
+                }
+                return extension || extension2 && isLt2M
+            }
+        }
+    })
+</script>
 </html>
